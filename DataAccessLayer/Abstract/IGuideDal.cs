@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DataAccessLayer.Abstract
 {
     // Kalıtımla Generic Interface'den yararlanıyoruz
-    public interface IGuideDal:IGenericDal<Guid>
+    public interface IGuideDal:IGenericDal<Guide>
     {
       
     }
