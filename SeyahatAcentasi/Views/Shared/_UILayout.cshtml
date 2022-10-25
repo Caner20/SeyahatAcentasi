@@ -5,16 +5,16 @@
 <!doctype html>
 <html lang="zxx">
 
-@await Html.PartialAsync("/Views/LayoutPartial/_HeaderPartial.cshtml") <!--HeaderPartial'ı buraya çağırıyor-->
+@await Html.PartialAsync("~/Views/LayoutPartial/_HeaderPartial.cshtml") <!--HeaderPartial'ı buraya çağırıyor-->
 <body>
 
-    @await Html.PartialAsync("/Views/LayoutPartial/_NavbarPartial.cshtml")
+    @await Html.PartialAsync("~/Views/LayoutPartial/_NavbarPartial.cshtml")
     <!--RenderBody() bu layout'a baglı olarak calisacak sayfalarin konumlandirilmasi -->
     @RenderBody()
 
-    @await Html.PartialAsync("/Views/LayoutPartial/_FooterPartial.cshtml")
+    @await Html.PartialAsync("~/Views/LayoutPartial/_FooterPartial.cshtml")
 
-    @await Html.PartialAsync("/Views/LayoutPartial/_ScriptsPartial.cshtml")
+    @await Html.PartialAsync("~/Views/LayoutPartial/_ScriptsPartial.cshtml")
 
 </body>
 </html>
