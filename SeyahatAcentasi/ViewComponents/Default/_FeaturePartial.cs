@@ -14,10 +14,10 @@ namespace SeyahatAcentasi.ViewComponents.Default
 
         public IViewComponentResult Invoke()
         {
-            //var values = featureManager.TGetList(); // bunla veri aktarsaydik 5 tane foreach yapicaktik saglıklı degil
+            var values = featureManager.TGetList(); // bunla veri aktarsaydik 5 tane foreach yapicaktik saglıklı degil
             //ViewBag lerle veri taşıyoruz 
             //ViewBag.image1 = featureManager.GetTByID
-            return View();
+            return View(values);
         }
     }
 }
