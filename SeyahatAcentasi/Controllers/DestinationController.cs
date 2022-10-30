@@ -21,6 +21,7 @@ namespace SeyahatAcentasi.Controllers
         [HttpGet]
         public IActionResult DestinationDetails(int id)
         {
+            ViewBag.i = id;
             var values = destinationManager.GetTByID(id);
             return View(values);
         }
