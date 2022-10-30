@@ -20,7 +20,7 @@ namespace BusinessLayer.Concrete
 
         public Destination GetTByID(int id)
         {
-            throw new NotImplementedException();
+            return _destinationdal.GetByID(id);
         }
 
         public void TAdd(Destination t)

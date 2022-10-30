@@ -12,10 +12,16 @@ namespace DataAccessLayer.Repository
     public class GenericRepository<T> : IGenericDal<T> where T : class
     {
         public void Delete(T t)
-        {
+        { 
             using var c = new Context();
             c.Remove(t);
             c.SaveChanges();
+        }
+
+        public T GetByID(int id)
+        {
+            using var c = new Context();
+            return c.Set<T>().Find(id);     // T entitysinde id 'den  gönderdigimiz degeri bulup getiriyor
         }
 
         public List<T> GetList()
