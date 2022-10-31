@@ -59,7 +59,7 @@ Author URL: http://w3layouts.com
                         <div class="form-input">
                             <label>Adınız</label>
                             <input type="text" asp-for="Name" /> <!--asp-for modelin hangi entity'si icin islem yapılıcak-->
-                            <span asp-validation-for="Name" class="text-danger"></span>
+                            <span asp-validation-for="Name" class="text-danger"></span> <!--UserRegisterViewModel deki Required'leri asp-validation-for a gore getir-->
                         </div>
                         <div class="form-input">
                             <label>Soyadınız</label>
@@ -85,6 +85,10 @@ Author URL: http://w3layouts.com
                             <label>Şifre Tekrarı</label>
                             <input type="password" asp-for="ConfirmPassword" />
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="text-danger" asp-validation-summary="ModelOnly">
+
                         </div>
 
                         <label class="container">
