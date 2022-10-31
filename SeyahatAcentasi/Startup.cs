@@ -1,6 +1,10 @@
+using DataAccessLayer.Concrete;
+using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +27,20 @@ namespace SeyahatAcentasi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Context>();
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>(); //Configure un içine identity yapillandirmasini ekledik
             services.AddControllersWithViews();
+
+            //alttaki kodda proje seviyesinde Authentication iþlemini kullanabilicez
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +59,7 @@ namespace SeyahatAcentasi
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
+            app.UseAuthentication(); //buraya eklemek zorundayýz 
             app.UseRouting();
 
             app.UseAuthorization();
