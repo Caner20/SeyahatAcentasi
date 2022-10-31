@@ -8,6 +8,7 @@ namespace SeyahatAcentasi.Models
 {
     public class UserRegisterViewModel
     {
+        //asp-validation-for (register ekraninda eksik satir var ise hata göster)
         [Required(ErrorMessage ="Lütfen adınızı giriniz")]
         public string Name { get; set; }
 
