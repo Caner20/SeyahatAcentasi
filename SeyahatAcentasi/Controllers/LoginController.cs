@@ -14,10 +14,12 @@ namespace SeyahatAcentasi.Controllers
     public class LoginController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;  //AppUser uzerinde SignInManager yapacagiz
 
-        public LoginController(UserManager<AppUser> userManager)
+        public LoginController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -58,6 +60,24 @@ namespace SeyahatAcentasi.Controllers
         [HttpGet]
         public IActionResult SignIn()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignIn(UserSignInViewModel p)
+        {
+            if (ModelState.IsValid)     //eger model gecerliyse
+            {
+                var result = await _signInManager.PasswordSignInAsync(p.userName, p.password, false, true);     //p parametresinin (username,password,hatirlasin mi?,sifre 5 kereden fazla girilirse bloklasin mi?)
+                if(result.Succeeded)        //result dan gelen deger kullanici adi ve sifresi dogruysa
+                {
+                    return RedirectToAction("Index","Destination");  //destination icindeki ındex sayfasına yönlendir
+                }
+                else
+                {
+                    return RedirectToAction("SignIn","Login");
+                }
+            }
             return View();
         }
     }
