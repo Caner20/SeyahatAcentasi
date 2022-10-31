@@ -71,6 +71,15 @@ namespace SeyahatAcentasi
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //area yi kullanmamiz icin buraya point'i ekledik
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
         }
     }
 }
