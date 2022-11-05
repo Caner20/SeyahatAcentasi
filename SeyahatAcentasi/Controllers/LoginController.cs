@@ -71,7 +71,7 @@ namespace SeyahatAcentasi.Controllers
                 var result = await _signInManager.PasswordSignInAsync(p.userName, p.password, false, true);     //p parametresinin (username,password,hatirlasin mi?,sifre 5 kereden fazla girilirse bloklasin mi?)
                 if(result.Succeeded)        //result dan gelen deger kullanici adi ve sifresi dogruysa
                 {
-                    return RedirectToAction("Index","Destination");  //destination icindeki ındex sayfasına yönlendir
+                    return RedirectToAction("Index","Profile",new {area="Member"});  //destination icindeki ındex sayfasına yönlendir
                 }
                 else
                 {
