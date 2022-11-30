@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -16,15 +17,34 @@ namespace SeyahatAcentasi.Areas.Member.Controllers
         DestinationManager destinationManager = new DestinationManager(new EfDestinationDal());
 
         ReservationManager reservationManager = new ReservationManager(new EfReservationDal());
-        public IActionResult MyCurrentReservation()  //aktif rezervasyon
-        {
 
-            return View();
+        private readonly UserManager<AppUser> _userManager;  //bu islem ilk once kullanici bilgilerini almak icin
+
+        public ReservationController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
         }
 
-        public IActionResult MyOldReservation()     //pasif rezervasyon
+        public async Task<IActionResult> MyCurrentReservation()  //aktif rezervasyon
         {
-            return View();
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);    //kullaniciyi adina gore bul
+            var valuesList = reservationManager.GetListWithReservationByAccepted(values.Id); //values den id degere gore listele 
+            return View(valuesList);
+        }
+
+        public async Task<IActionResult> MyOldReservation()     //pasif rezervasyon
+        {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);    //kullaniciyi adina gore bul
+            var valuesList = reservationManager.GetListWithReservationByPrevious(values.Id); //values den id degere gore listele 
+            return View(valuesList);
+        }
+
+        //degiskene await dendigi zaman property asenkronik olmalıdır
+        public async Task<IActionResult> MyApprovalReservation()        //ONAY bekleyen rezervasyon
+        {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);    //kullaniciyi adina gore bul
+            var valuesList = reservationManager.GetListWithReservationByWaitApproval(values.Id); //values den id degere gore listele 
+            return View(valuesList);  //valuesList'ten gelen degerleri dondur
         }
 
 
