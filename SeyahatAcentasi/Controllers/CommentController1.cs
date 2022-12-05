@@ -18,7 +18,7 @@ namespace SeyahatAcentasi.Controllers
         {
             return PartialView();
         }
-
+         
         [HttpPost]
         public IActionResult AddComment(Comment p)
         {
