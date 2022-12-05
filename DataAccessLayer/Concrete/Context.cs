@@ -13,7 +13,7 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=(localdb)\\AhmetCan;database=SeyahatAcentasiDB;integrated security=true;");
+            optionsBuilder.UseSqlServer("server=DESKTOP-IIC21FH\\SQLEXPRESS;database=SeyahatAcentasiDB;integrated security=true;");
         }
                 //Context Sınıfını Tanımlama...
         public DbSet<About> Abouts { get; set; }
