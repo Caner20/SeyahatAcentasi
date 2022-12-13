@@ -1,0 +1,29 @@
+﻿@using EntityLayer.Concrete
+@model List<Comment>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Yorum Listesi</h1>
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th> <!--Sutun olusturduk-->
+        <th>Kullanıcı</th>
+        <th>Blog</th>
+        <th>Tarih</th>
+        <th>Sil</th>
+    </tr>
+    @foreach(var item in Model){
+        <tr>
+            <td>@item.CommentID</td>  <!--donen item'i yorum id 'sine gore getir-->
+            <td>@item.CommentUser</td>
+            <td>@item.Destination.Cİty</td>  <!--city normalde gelmez ama include yapildigi icin artık veri gelir -->
+            <td>@(((DateTime)item.CommentDate).ToString("dd-MMM-yyyy"))</td>  <!--tarih formatini gun/ay/yil olarak getirdik-->
+            <td><a href="/Admin/Comment/DeleteComment/@item.CommentID" class="btn btn-outline-danger">Sil</a></td>   <!--yorum id sine gore silme islemini gonderdik-->
+        </tr>
+    }
+</table>
+
