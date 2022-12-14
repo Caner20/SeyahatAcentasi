@@ -39,7 +39,12 @@ namespace SeyahatAcentasi
             //EntityFramework (manager)  katmaný bagýmlýlýgýný kaldýrmak icin Service'i startup'a eklemeliyiz
             services.AddScoped<ICommentService, CommentManager>();
             services.AddScoped<ICommentDal, EfCommentDal>();
+            
+            services.AddScoped<IDestinationService, DestinationManager>();
+            services.AddScoped<IDestinationDal, EfDestinationDal>();
 
+            services.AddScoped<IAppUserService, AppUserManager>();
+            services.AddScoped<IAppUserDal, EfAppUserDal>();
 
 
 

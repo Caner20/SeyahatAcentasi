@@ -1,0 +1,40 @@
+﻿@using EntityLayer.Concrete
+@model List<AppUser>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sayac = 0;   //sayac belirledik kacinci veride oldugumuzu görmek için
+}
+
+<h1>Kullanıcı Listesi</h1>
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th> <!--Sutun olusturduk-->
+        <th>Ad Soyad</th>
+        <th>Kullanıcı Adı</th>
+        <th>Mail Adresi</th>
+        <th>Sil</th>
+        <th>Düzenle</th>
+        <th>Yorumlar</th>
+        <th>Tur Geçmişi</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            @{
+                sayac += 1;     //her item da sayaci 1 arttirdik
+            }
+            <td>@sayac</td>                     <!--donen item kadar sayac articak ve gosterilicek-->
+            <td>@item.Name @item.Surname</td>   <!--donen item'i name ve surname ine  gore getir-->
+            <td>@item.UserName</td>             <!--donen item'i kullanici adina gore getir-->
+            <td>@item.Email</td>                <!--donen item'i mail'ine gore getir-->
+            <td><a href="/Admin/User/DeleteUser/@item.Id" class="btn btn-outline-danger">Sil</a></td>   <!--id sine gore silme islemini gonderdik-->
+            <td><a href="/Admin/User/EditUser/@item.Id" class="btn btn-outline-success">Düzenle</a></td>   <!--id sine gore Düzenleme islemini gonderdik-->
+            <td><a href="/Admin/User/CommentUser/@item.Id" class="btn btn-outline-info">Yorumlar</a></td>   <!--id sine gore yorumlar islemini gonderdik-->
+            <td><a href="/Admin/User/ReservationUser/@item.Id" class="btn btn-outline-primary">Tur Geçmişi</a></td>   <!--id sine gore Tur Gecmisini islemini gonderdik-->
+        </tr>
+    }
+</table>
+
+<a href="/Admin/User/AddUser" class="btn btn-outline-primary">Yeni Kullanıcı Kaydı</a>     <!--yeni kullanici eklemek için yönlendirme butonu-->
