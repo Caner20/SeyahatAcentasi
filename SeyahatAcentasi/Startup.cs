@@ -1,5 +1,6 @@
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.Container;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
@@ -37,15 +38,7 @@ namespace SeyahatAcentasi
             services.AddControllersWithViews();
 
             //EntityFramework (manager)  katmaný bagýmlýlýgýný kaldýrmak icin Service'i startup'a eklemeliyiz
-            services.AddScoped<ICommentService, CommentManager>();
-            services.AddScoped<ICommentDal, EfCommentDal>();
-            
-            services.AddScoped<IDestinationService, DestinationManager>();
-            services.AddScoped<IDestinationDal, EfDestinationDal>();
-
-            services.AddScoped<IAppUserService, AppUserManager>();
-            services.AddScoped<IAppUserDal, EfAppUserDal>();
-
+            services.ContainerDependencies();
 
 
             //alttaki kodda proje seviyesinde Authentication iþlemini kullanabilicez
@@ -74,6 +67,7 @@ namespace SeyahatAcentasi
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404","?code={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication(); //buraya eklemek zorundayýz 
