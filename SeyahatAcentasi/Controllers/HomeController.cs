@@ -20,11 +20,21 @@ namespace SeyahatAcentasi.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("Index Sayfası Çağrıldı");
+            _logger.LogError("Error log Çağrıldı");
             return View();
         }
 
         public IActionResult Privacy()
         {
+            DateTime d = Convert.ToDateTime(DateTime.Now.ToLongDateString());
+            _logger.LogInformation(d + "Privacy Sayfası Çağrıldı");
+            return View();
+        }
+
+        public IActionResult Test()
+        {
+            _logger.LogInformation("Test Sayfası Çağrıldı");
             return View();
         }
 
