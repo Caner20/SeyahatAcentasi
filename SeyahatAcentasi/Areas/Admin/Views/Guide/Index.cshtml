@@ -5,6 +5,12 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     int count = 0;
 }
+<!--Rehberlerin Gorsellerini yuvarlak yapmak icin style-->
+<style>
+    img{
+        border-radius:50%;
+    }
+</style>
 
 <h1>Rehber Listesi</h1>
 
@@ -22,16 +28,16 @@
         count++;
         <tr>
             <td>@count</td>
-            <td><img src="@item.Image" height="50" width="50"/></td>
+            <td><img src="@item.Image" height="50" width="50" /></td>
             <td>@item.Name</td>
             <td>@item.Description</td>
             
                 @{      //eger durum true ise pasif yapan kod degilse tam tersi 
                     if(item.Status==true){
-                       <td><a href="#" class="btn btn-outline-warning">Pasif Yap</a></td>
+                           <td><a href="#" class="btn btn-outline-warning">Pasif Yap</a></td>
                     }
                     else{
-                    <td><a href="#" class="btn btn-outline-info">Aktif Yap</a></td>
+                        <td><a href="#" class="btn btn-outline-info">Aktif Yap</a></td>
                     }
                 }
             <td><a href="#" class="btn btn-outline-success">Düzenle</a></td>

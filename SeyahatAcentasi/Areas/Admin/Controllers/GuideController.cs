@@ -1,5 +1,7 @@
 ﻿using BusinessLayer.Abstract;
+using BusinessLayer.ValidationRules;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SeyahatAcentasi.Areas.Admin.Controllers
@@ -30,8 +32,21 @@ namespace SeyahatAcentasi.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult AddGuide(Guide guide)
         {
+            GuideValidator validationRules = new GuideValidator();
+            ValidationResult result=validationRules.Validate(guide);   //girilen parammetreyi kurallara gore denetle result'a ata
+            if(result.IsValid) //eger islem basariliysa ekleme islemini yap
+            { 
             _guideService.TAdd(guide);
             return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach(var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);  //hangisinin hata ve hata mesajini gosterildi
+                }
+                return View();
+            }
         }
 
         [HttpGet]
