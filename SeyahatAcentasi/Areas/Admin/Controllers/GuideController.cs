@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace SeyahatAcentasi.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/Guide")] //islemelr yapıldıgında gene routeta belirtilen sayfa'da kalmasi icin
     public class GuideController : Controller
     {
        
@@ -16,19 +17,22 @@ namespace SeyahatAcentasi.Areas.Admin.Controllers
         {
             this._guideService = guideService;
         }
-
+        [Route("")]
+        [Route("Index")] //Index'in yonlendirme yolu
         public IActionResult Index()
         {
             var values = _guideService.TGetList();
             return View(values);
         }
 
+        [Route("AddGuide")]  //AddGuide sayfasina yonlendirdik
         [HttpGet]
         public IActionResult AddGuide()
         {
             return View();
         }
 
+        [Route("AddGuide")]
         [HttpPost]
         public IActionResult AddGuide(Guide guide)
         {
@@ -49,6 +53,8 @@ namespace SeyahatAcentasi.Areas.Admin.Controllers
             }
         }
 
+
+        [Route("EditGuide")]
         [HttpGet]
         public IActionResult EditGuide(int id)
         {
@@ -56,21 +62,26 @@ namespace SeyahatAcentasi.Areas.Admin.Controllers
             return View(values);
         }
 
+        [Route("EditGuide")]
         [HttpPost]
         public IActionResult EditGuide(Guide guide)
         {
             _guideService.TUpdate(guide);
             return RedirectToAction("Index");
         }
+        [Route("ChangeToTrue/{id}")]  //id link ki gonderdik
 
         public IActionResult ChangeToTrue(int id)
         {
-            return RedirectToAction("Index");
+            _guideService.TChangeToTrueByGuide(id);
+            return RedirectToAction("Index" , "Guide" ,new {area ="Admin"}); //area atamasi yapildi
         }
+        [Route("ChangeToFalse/{id}")]
 
         public IActionResult ChangeToFalse(int id)
         {
-            return RedirectToAction("Index");
+            _guideService.TChangeToFalseByGuide(id);
+            return RedirectToAction("Index", "Guide", new { area = "Admin" });
         }
 
 
