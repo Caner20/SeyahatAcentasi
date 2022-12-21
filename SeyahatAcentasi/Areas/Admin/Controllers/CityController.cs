@@ -59,10 +59,5 @@ namespace SeyahatAcentasi.Areas.Admin.Controllers
             return Json(v);
         }
 
-
-
-
-
-
     }
 }
